@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">                                                                        <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Malware Attack</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@400;700&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+                                                                                            #customAlert {
+      position: fixed;
+      top: 0;
+      left: 5%;
+      width: 90%;
+      height: 80%;
+      background: rgba(5, 5, 20, 0.8);
+      display: flex;                                                                          justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .alert-box {
+      background: linear-gradient(135deg, #ff00cc, #3333ff);                                  padding: 30px;
+      border-radius: 20px;
+      color: white;
+      font-size: 1.3em;
+      box-shadow: 0 0 20px #ff00cc, 0 0 40px #3333ff;
+      text-align: center;
+      animation: popIn 0.5s ease-out;
+    }
+
+    .alert-box button {
+      margin-top: 20px;
+      padding: 10px 25px;
+      border: none;
+      background: #ffffff;
+      color: #333;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .alert-box button:hover {
+      background: #ff00cc;
+      color: white;
+    }
+                                                                                            @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }                                             to { transform: scale(1); opacity: 1; }
+    }
+
+                                                                                            /* Loader */
+    #loading {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;                                                            background: #000814;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 4000;
+      flex-direction: column;
+      transition: opacity 0.5s ease;
+    }
+
+    .loader-ring {
+      width: 80px;
+      height: 80px;
+      border: 10px solid rgba(255, 255, 255, 0.1);
+      border-top: 10px solid #00ffee;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      box-shadow: 0 0 30px #00ffee, 0 0 60px #00ffee66;
+    }
+
+    .loading-text {
+      margin-top: 20px;
+      font-size: 1.5em;
+      color: #00ffee;
+      text-shadow: 0 0 5px #00ffee, 0 0 10px #00ffee;
+      animation: blinkText 2s infinite alternate;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }                                                                                   
+    @keyframes blinkText {
+      0% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    .hero {                                                                                   height: 120vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1;
+    }                                                                                   
+    .glowing-text {
+      font-size: 4em;
+      font-weight: bold;
+      color: #FFFFFF;                                                                         text-shadow: 0 0 10px #00A0FF, 0 0 20px #00BEFF, 0 0 30px #008BFF;
+      opacity: 0;
+    }
+
+    .sub-text {
+      font-size: 1em;                                                                         opacity: 0;
+      max-width: 90%;
+    }
+
+    .btn {
+      margin-top: 20px;                                                                       padding: 15px 30px;
+      font-size: 1.2em;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(45deg, #ff00ff, #ff6b81);                                   color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff00ff;
+      transition: 0.3s;
+      opacity: 0;
+    }                                                                                   
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #ff00ff;
+    }
+                                                                                            .section {
+      padding: 100px 20px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 50px 0;
+      border-radius: 20px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .section h2 {                                                                             font-size: 3em;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+    }
+                                                                                            footer {
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 1.2em;
+    }
+
+    .malware-item {                                                                           padding: 15px;
+      margin-bottom: 15px;
+      background: linear-gradient(to right, #E6F7FF, #9BC3FF);
+      border-left: 5px solid #60B5FF;                                                         box-shadow: 0 0 15px #0089FF;
+      color: #330000;
+      border-radius: 10px;
+      transition: all 0.4s ease;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    .malware-item:hover {
+      transform: scale(1.05);                                                               }
+
+    @keyframes glowPulse {
+      0% { box-shadow: 0 0 15px #0089FF; }
+      50% { box-shadow: 0 0 25px #0089FF, 0 0 35px rgba(0, 137, 255, 0.5); }
+      100% { box-shadow: 0 0 15px #0089FF; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Custom Alert -->
+<div id="customAlert">
+  <div class="alert-box">
+    <p>Radhe Radhe !! <br><br>We mention a small description about Malware Attack and their prevention here.</p>
+    <button onclick="closeCustomAlert()">OK</button>
+  </div>
+</div>
+
+<!-- Loading Screen -->
+  <div id="loading">
+    <div class="loader-ring"></div>
+  </div>
+
+<div id = 'mainContent' style = "display : none;opacity: 0;">
+<!-- Hero Section -->
+<section class="hero">
+  <h1 class="glowing-text">Malware Attack</h1>                                            <p class="sub-text">
+    Malware attack is one of the most dangerous hacking attacks. Malware is a malicious software that causes harm to users. Attackers run malware on the victim's system by manipulating them. The attacker can run any command on the victim's system after getting access. There are many types of malware like: Trojan horse, Spyware, Keylogger, Adware, Ransomware, etc.A malware attack occurs when hackers or cybercriminals use malicious software to damage computers, mobile devices, networks, or servers. The goal can vary — stealing personal or financial data, spying on user activity, disrupting operations, or demanding ransom (as in ransomware). Malware can spread through infected emails, fake websites, USB drives, software downloads, or even legitimate-looking apps. Once installed, it can operate silently, causing harm without the user knowing.
+
+  </p>
+  <button class="btn" onclick="scrollToContent()">Click ME</button>
+</section>
+
+<!-- Location Tracker -->
+<section class="section">
+  <h2>Location Tracking</h2>
+  <p>Find the location of a phone number by one click. Please visit this link</p>
+  <a href="/wish.html" target="_blank" class="btn">Link</a>
+</section>
+
+<!-- Safety Tips -->
+<section class="section">                                                                 <h2 style="font-size: 10vw;">Safety from Malware Attack</h2>
+  <ul style="list-style-position: inside; padding-left: 0; text-align: left; max-width: 700px; margin: auto; font-size: 1.2em; font-weight: bold;">
+    <li class="malware-item">Don't download software from untrusted sources.</li>
+    <li class="malware-item">Give limited access to any software.</li>
+    <li class="malware-item">Be aware of phishing.</li>
+    <li class="malware-item">Don't plug unknown USB Drive in your system.</li>
+    <li class="malware-item">Don't execute any software on your system without knowledge about it.</li>
+  </ul>
+</section>
+
+<!-- Disclaimer -->                                                                     <section class="section">
+  <h2>Disclaimer</h2>
+  <p>
+    The content provided above is only for educational purposes. Me and my website don't promote any illegal activities of hacking. Don't use malware to harm anyone but can use for educational purpose. Remember that hacking without permission is illegal and punishable by law.
+  </p>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>© 2025 Ethical Hacking | All Rights Reserved</p>
+</footer>                                                                               </div>
+<!-- JS Logic -->                                                                       <script>
+  function closeCustomAlert() {
+    document.getElementById("customAlert").style.display = "none";
+  }
+
+  const loader = document.getElementById('loading');
+    const content = document.getElementById('mainContent');
+
+    // Show loader for 3 seconds
+    loader.style.visibility = 'visible';
+    loader.style.opacity = 1;
+
+    setTimeout(() => {
+      loader.style.opacity = 0;
+      setTimeout(() => {
+        loader.style.display = 'none';
+        content.style.display = 'block';
+        setTimeout(() => {
+          content.style.opacity = 1;
+        }, 50);
+      }, 500);
+    }, 8000);
+
+</script>
+
+<!-- GSAP for Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+<script>
+  gsap.to(".glowing-text", { opacity: 1, y: 0, duration: 1 });                            gsap.to(".sub-text", { opacity: 1, y: 0, duration: 1, delay: 0.5 });
+  gsap.to(".btn", { opacity: 1, y: 0, duration: 1, delay: 1 });
+
+  gsap.utils.toArray('.section').forEach(section => {
+    gsap.to(section, {
+      scrollTrigger: {
+        trigger: section,
+        start: "top 80%",
+        toggleActions: "play none none none"
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      delay: 0.3
+    });
+  });
+</script>
+
+</body>
+</html>
